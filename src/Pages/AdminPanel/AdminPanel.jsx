@@ -50,14 +50,23 @@ const AdminPanel = () => {
                 </DownloadTableExcel>
                 {/* <ReactToPrint
                     trigger={() => {
-                        return <button>PRINT</button>
+                        return 
                     }}
                     content={() => this.componentRef}
                     documentTitle='new document'
                     pageStyle='print'
                 /> */}
+                <button>PRINT</button>
 
-                <button>SHOW/HIDE COLUMN</button>
+                <select style={{ padding: "10px", marginRight: "20px", borderRadius: "5px" }}>
+                    <option selected>SHOW/HIDE COLUMN</option>
+                    <input type="checkbox" name="" id="" />
+                    <option value='User' >User</option>
+                    <option value='Email'>Email</option>
+                    <option value='Role'>Role</option>
+                    <option value='Plan'>Plan</option>
+                    <option value='Status'>Status</option>
+                </select>
                 <input type="text" placeholder="Search Invoice" name="search" />
                 <button>ADD USER</button>
             </div>

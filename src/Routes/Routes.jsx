@@ -37,11 +37,11 @@ const router = createBrowserRouter([
     },
     {
         path: '/adminPanel',
-        element: <AdminLayout />,
+        element: <AdminRoute><AdminLayout /></AdminRoute>,
         children: [
             {
                 path: '/adminPanel/allUsers',
-                element: <AdminPanel />
+                element: <AdminRoute><AdminPanel /></AdminRoute>
             },
             {
                 path: '/adminPanel/addUser',
