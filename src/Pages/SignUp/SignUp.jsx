@@ -29,6 +29,18 @@ const SignUp = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                fetch('http://localhost:5000/signInUsers', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                    })
+                console.log(user);
                 form.reset();
             })
             .catch(error => {

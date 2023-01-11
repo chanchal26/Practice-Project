@@ -12,13 +12,11 @@ const Home = () => {
             .then(data => setProducts(data))
     }, [])
 
-    const handleCart = (id) => {
 
-    }
     return (
         <div className='card-section'>
             {
-                products.map(product => <Product handleCart={handleCart} key={product._id} product={product}></Product>)
+                products.map(product => <Product key={product._id} product={product}></Product>)
             }
         </div>
     );

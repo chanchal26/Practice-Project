@@ -3,15 +3,16 @@ import { DownloadTableExcel } from 'react-export-table-to-excel';
 import { HiDotsVertical } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import Pdf from "react-to-pdf";
+// import ReactToPrint from 'react-to-print';
 import './AdminPanel.css'
-import Printer, { print } from 'react-pdf-print'
 
 
-const ids = ['1']
 const ref = React.createRef();
 const AdminPanel = () => {
     const [users, setUsers] = useState([])
     const [refresh, setRefresh] = useState(false);
+
+
 
     useEffect(() => {
         fetch('http://localhost:5000/users')
@@ -47,15 +48,23 @@ const AdminPanel = () => {
                     <button>EXCEL</button>
 
                 </DownloadTableExcel>
+                {/* <ReactToPrint
+                    trigger={() => {
+                        return <button>PRINT</button>
+                    }}
+                    content={() => this.componentRef}
+                    documentTitle='new document'
+                    pageStyle='print'
+                /> */}
 
-                <button onClick={() => print(ids)} value='Stampa'>PRINT</button>
                 <button>SHOW/HIDE COLUMN</button>
                 <input type="text" placeholder="Search Invoice" name="search" />
                 <button>ADD USER</button>
             </div>
-            <Printer>
+            <div ref={ref}>
                 <table id="customers" ref={tableRef} >
-                    <tr ref={ref}>
+
+                    <tr >
                         <th>User</th>
                         <th>Email</th>
                         <th>Role</th>
@@ -68,7 +77,7 @@ const AdminPanel = () => {
                             <tr key={user._id}>
                                 <td className='flex'>
                                     <div>
-                                        <img src={user.img} alt="" />
+                                        <img src={user.image} alt="" />
                                     </div>
                                     <div>
                                         <p>{user.name}</p>
@@ -80,10 +89,10 @@ const AdminPanel = () => {
                                 <td>{user.plan}</td>
                                 <td>{user.status}</td>
                                 <td>
-                                    <div class="dropdown">
-                                        <button class="dropbtn"><HiDotsVertical /></button>
-                                        <div class="dropdown-content">
-                                            <Link href="#"><button>Edit</button></Link>
+                                    <div className="dropdown">
+                                        <button className="dropbtn"><HiDotsVertical /></button>
+                                        <div className="dropdown-content">
+                                            <Link to={`/adminPanel/userUpdate/${user._id}`}><button>Edit</button></Link>
                                             <Link href="#"><button onClick={() => handleDelete(user._id)}>Delete</button></Link>
                                         </div>
                                     </div>
@@ -92,7 +101,7 @@ const AdminPanel = () => {
                     }
 
                 </table>
-            </Printer>
+            </div>
         </div>
     );
 };

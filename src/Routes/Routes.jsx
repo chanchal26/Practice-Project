@@ -8,6 +8,8 @@ import Home from "../Pages/Home";
 import MyCart from "../Pages/MyCart/MyCart";
 import SignIn from "../Pages/SignIn/SignIn";
 import SignUp from "../Pages/SignUp/SignUp";
+import UserUpdate from "../Pages/UserUpdate/UserUpdate";
+import AdminRoute from "./AdminRoute";
 import PrivateRoutes from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -29,13 +31,13 @@ const router = createBrowserRouter([
             },
             {
                 path: '/myCart',
-                element: <MyCart />
+                element: <PrivateRoutes><MyCart /></PrivateRoutes>
             },
         ]
     },
     {
         path: '/adminPanel',
-        element: <PrivateRoutes><AdminLayout /></PrivateRoutes>,
+        element: <AdminLayout />,
         children: [
             {
                 path: '/adminPanel/allUsers',
@@ -43,12 +45,17 @@ const router = createBrowserRouter([
             },
             {
                 path: '/adminPanel/addUser',
-                element: <AddUser />
+                element: <AdminRoute><AddUser /></AdminRoute>
             },
             {
                 path: '/adminPanel/addProduct',
-                element: <AddProduct />
-            }
+                element: <AdminRoute><AddProduct /></AdminRoute>
+            },
+            {
+                path: '/adminPanel/userUpdate/:id',
+                loader: ({ params }) => fetch(`http://localhost:5000/users/${params.id}`),
+                element: <UserUpdate />
+            },
         ]
     }
 ])

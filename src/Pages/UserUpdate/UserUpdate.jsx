@@ -1,12 +1,13 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 
-const AddUser = () => {
+const UserUpdate = () => {
+    const users = useLoaderData();
     const { register, formState: { errors }, handleSubmit } = useForm();
     const navigate = useNavigate()
 
-    const handleAddUser = data => {
+    const handleUpdateUser = data => {
         console.log(data);
         const image = data.image[0];
         const formData = new FormData();
@@ -20,7 +21,7 @@ const AddUser = () => {
             .then(imgData => {
                 console.log(imgData.data.url);
                 if (imgData.success) {
-                    const doctor = {
+                    const user = {
                         name: data.name,
                         email: data.email,
                         plan: data.plan,
@@ -29,12 +30,12 @@ const AddUser = () => {
                         image: imgData.data.url
                     }
 
-                    fetch('http://localhost:5000/users', {
-                        method: "POST",
+                    fetch(`http://localhost:5000/users/${users._id}`, {
+                        method: "PUT",
                         headers: {
                             'content-type': 'application/json',
                         },
-                        body: JSON.stringify(doctor)
+                        body: JSON.stringify(user)
                     })
                         .then(res => res.json())
                         .then(data => {
@@ -47,26 +48,26 @@ const AddUser = () => {
 
 
     return (
-        <div style={{ display: "grid", justifyItems: "center" }}>
-            <h1 style={{ textAlign: "center" }}>Add A New User</h1>
-            <form onSubmit={handleSubmit(handleAddUser)}>
+        <div>
+            <h1>Add A New User</h1>
+            <form onSubmit={handleSubmit(handleUpdateUser)}>
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text font-semibold">Name of the product</span>
                     </label>
-                    <input {...register("name", { required: true })} type="text" placeholder="Name" className="input input-bordered" />
+                    <input {...register("name", { required: true })} defaultValue={users.name} type="text" placeholder="Name" className="input input-bordered" />
                     {errors.name?.type === 'required' && <p role="alert" className='text-red-500'>name is required</p>}
                 </div>
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text font-semibold">Email Address</span>
                     </label>
-                    <input {...register("email", { required: true })} type="email" placeholder="Email" className="input input-bordered" />
+                    <input {...register("email", { required: true })} defaultValue={users.email} type="email" placeholder="Email" className="input input-bordered" />
                     {errors.email?.type === 'required' && <p role="alert" className='text-red-500'>Email is required</p>}
                 </div>
                 <div className='form-control'>
                     <label htmlFor='name'>Role</label>
-                    <select style={{ padding: "10px" }} {...register("role", { required: true })}>
+                    <select selected={users.role} {...register("role", { required: true })}>
                         <option value='Admin' selected>Admin</option>
                         <option value='Editor'>Editor</option>
                         <option value='Author'>Author</option>
@@ -74,7 +75,7 @@ const AddUser = () => {
                 </div>
                 <div className='form-control'>
                     <label htmlFor='name'>Status</label>
-                    <select style={{ padding: "10px" }} name='status' {...register("status", { required: true })}>
+                    <select name='status' defaultValue={users.status} {...register("status", { required: true })}>
                         <option value='Active' selected>Active</option>
                         <option value='InActive'>InActive</option>
                         <option value='Pending'>Pending</option>
@@ -82,7 +83,7 @@ const AddUser = () => {
                 </div>
                 <div className='form-control'>
                     <label htmlFor='name'>Plan</label>
-                    <select style={{ padding: "10px" }} name='plan' {...register("plan", { required: true })}>
+                    <select name='plan' defaultValue={users.plan} {...register("plan", { required: true })}>
                         <option value='Active' selected>Team</option>
                         <option value='InActive'>Company</option>
                         <option value='Pending'>Basic</option>
@@ -96,10 +97,10 @@ const AddUser = () => {
                     <input {...register("image", { required: true })} type="file" className="file-input" />
                     {errors.name?.type === 'required' && <p role="alert" className='text-red-500'>Photo is required</p>}
                 </div>
-                <input style={{ padding: "8px", marginLeft: "20px", marginBottom: "20px" }} type="submit" value="Add A User" />
+                <input className='btn btn-neutral w-full my-4' type="submit" value="Update A User" />
             </form>
         </div>
     );
 };
 
-export default AddUser;
+export default UserUpdate;

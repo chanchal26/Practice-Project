@@ -11,6 +11,7 @@ const Navbar = () => {
                 <h1><Link to='/' id='logo'>Md Chanchal Hossain</Link></h1>
             </div>
             <div className='link'>
+                <Link to='/'>Shop</Link>
                 <Link to='/myCart'>My Cart</Link>
                 <Link to='/adminPanel'>Admin Panel</Link>
                 {

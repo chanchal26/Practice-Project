@@ -1,0 +1,44 @@
+.review-item img {
+    width: 90px;
+}
+
+.review-item {
+    display: flex;
+    align-items: center;
+    width: 500px;
+    padding: 8px;
+    border: 1px solid bisque;
+    background: ivory;
+    margin: 21px auto;
+    border-radius: 10px;
+}
+
+.info {
+    margin-left: 10px;
+}
+
+.review-details-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.review-item p,
+h4 {
+    margin: 0;
+}
+
+.review-item button {
+    width: 50px;
+    border: none;
+    background: ivory;
+    color: tomato;
+}
+
+.btn0:hover {
+    width: 55px;
+    height: 55px;
+    background: rgb(136, 40, 23);
+    cursor: pointer;
+    border-radius: 50%;
+}

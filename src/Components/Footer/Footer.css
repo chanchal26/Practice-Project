@@ -1,0 +1,16 @@
+.container {
+    text-align: center;
+    background: #1C2B35;
+    color: white;
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+.icons {
+    margin-right: 10px;
+}
+
+.f-Link {
+    margin-left: 150px;
+}
